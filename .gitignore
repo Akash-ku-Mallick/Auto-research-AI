@@ -1,0 +1,8 @@
+# Projects
+backend
+frontend
+
+# Dependencies
+.env
+node_modules
+package-lock.json

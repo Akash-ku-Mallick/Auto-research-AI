@@ -1,0 +1,17 @@
+{
+  "name": "rtk-codegen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@rtk-query/codegen-openapi": "^2.2.0",
+    "dotenv": "^17.4.2"
+  }
+}
