@@ -11,6 +11,650 @@
     }
   ],
   "paths": {
+    "/api/topic-rules": {
+      "get": {
+        "summary": "Retrieve all topic rules",
+        "description": "Gets a list of topic rules. Can be filtered by source_id.",
+        "tags": [
+          "TopicRules"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "source_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Filter rules by source ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of topic rules retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TopicRule"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new topic rule",
+        "tags": [
+          "TopicRules"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "source_id"
+                ],
+                "properties": {
+                  "source_id": {
+                    "type": "string"
+                  },
+                  "whitelist_keywords": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "blacklist_keywords": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Rule created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicRule"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters supplied"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/topic-rules/{id}": {
+      "get": {
+        "summary": "Retrieve a single topic rule by ID",
+        "tags": [
+          "TopicRules"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The rule ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rule details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicRule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rule not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing topic rule",
+        "tags": [
+          "TopicRules"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The rule ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "whitelist_keywords": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "blacklist_keywords": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rule updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicRule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rule not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a topic rule",
+        "tags": [
+          "TopicRules"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The rule ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rule deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rule not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sources": {
+      "get": {
+        "summary": "Retrieve all sources",
+        "description": "Gets a list of all sources configured in the active database.",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of sources retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Source"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new source",
+        "description": "Creates a new source. Valid types are 'rss', 'hackernews', and 'github'.",
+        "tags": [
+          "Sources"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "type"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Descriptive name of the source"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "rss",
+                      "hackernews",
+                      "github"
+                    ],
+                    "description": "Type of source"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "RSS feed URL (required for RSS type)"
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable or disable the source from auto-running"
+                  },
+                  "interval_minutes": {
+                    "type": "integer",
+                    "default": 60,
+                    "description": "Time in minutes between ingestion runs"
+                  },
+                  "priority": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Queue or selection priority (higher is more critical)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Source created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters supplied"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sources/{id}": {
+      "get": {
+        "summary": "Retrieve a single source by ID",
+        "description": "Gets detail configuration for a single source.",
+        "tags": [
+          "Sources"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The source ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Source details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Source not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing source",
+        "description": "Modifies attributes of an existing source.",
+        "tags": [
+          "Sources"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The source ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "rss",
+                      "hackernews",
+                      "github"
+                    ]
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "interval_minutes": {
+                    "type": "integer"
+                  },
+                  "priority": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Source updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters supplied"
+          },
+          "404": {
+            "description": "Source not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a source",
+        "description": "Permanently deletes a source by ID.",
+        "tags": [
+          "Sources"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The source ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Source deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Source not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sources/ingest": {
+      "post": {
+        "summary": "Trigger manual ingestion pipeline",
+        "description": "Triggers scraping and saving articles from all enabled sources.",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingestion ran successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "totalProcessed": {
+                      "type": "integer"
+                    },
+                    "totalSaved": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sources/trigger-scoring": {
+      "post": {
+        "summary": "Trigger manual AI scoring pipeline",
+        "description": "Sweeps for unscored articles and runs them through the active AI Provider.",
+        "tags": [
+          "Sources"
+        ],
+        "responses": {
+          "200": {
+            "description": "Scoring ran successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "totalScored": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/research/feed": {
+      "get": {
+        "summary": "Get the research feed",
+        "description": "Returns a list of scored articles, optionally including filtered ones.",
+        "tags": [
+          "Research"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "includeFiltered",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Include articles that were filtered out (true/false)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of articles to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the research feed"
+          }
+        }
+      }
+    },
+    "/api/reports/generate": {
+      "post": {
+        "summary": "Generate a Markdown Report",
+        "description": "Triggers the generation of a markdown report containing the top-scored AI research articles.",
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of top articles to include (default 10)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Report generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "filepath": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/config": {
       "post": {
         "summary": "Save or update a system configuration key",
@@ -68,6 +712,100 @@
       }
     }
   },
-  "components": {},
+  "components": {
+    "schemas": {
+      "TopicRule": {
+        "type": "object",
+        "required": [
+          "id",
+          "source_id",
+          "whitelist_keywords",
+          "blacklist_keywords",
+          "enabled"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique rule identifier"
+          },
+          "source_id": {
+            "type": "string",
+            "description": "ID of the source this rule applies to"
+          },
+          "whitelist_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of keywords. Article must match at least one if list is not empty."
+          },
+          "blacklist_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of keywords. Article is discarded if it matches any."
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the rule is currently active"
+          }
+        }
+      },
+      "Source": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type",
+          "enabled",
+          "interval_minutes",
+          "priority"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique source identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the source"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of source (rss, hackernews, github)"
+          },
+          "url": {
+            "type": "string",
+            "nullable": true,
+            "description": "URL of the feed"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the source is currently active"
+          },
+          "interval_minutes": {
+            "type": "integer",
+            "description": "Ingestion frequency in minutes"
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Ingestion priority"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the source was created"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Timestamp of soft deletion"
+          }
+        }
+      }
+    }
+  },
   "tags": []
 }
