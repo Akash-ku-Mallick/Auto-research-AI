@@ -382,6 +382,26 @@ This two-stage approach saves tokens.
 
 ---
 
+# Interactive Article Chat & Deep Research
+
+To allow users to dive deeper into specific articles:
+
+## Article Chat
+* **Chat Initialization**: When a user wants to discuss an article, generate a unique `chat_id` and associate it with the `article_id`.
+* **State Persistence**: This allows users to start, leave, and resume conversations about a specific article without losing context.
+* **Model Selection**: The chat panel will open using the currently selected AI model (Gemini or Ollama).
+
+## Deep Research Mode
+* **Trigger**: Provide a "Deep Research" button within the article or chat view.
+* **Mechanism**:
+  * AI generates targeted search keywords and builds a temporary Knowledge Base (KB) around the article.
+  * The system performs automated web searches based on these keywords.
+* **Controlled Research**:
+  * Users can manually add new sources or specific URLs.
+  * The AI will run another controlled research loop against these user-provided sources to enrich the findings.
+
+---
+
 # Output Table
 
 Generate markdown automatically:

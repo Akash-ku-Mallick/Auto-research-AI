@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "frontend": "npm run dev --prefix frontend",
+    "landing": "npm run dev --prefix landingpage/frontend",
+    "landing:build": "npm run build --prefix landingpage/frontend",
     "backend": "npx tsx src/server.ts --prefix backend",
     "backend:dev": "cd backend && npx tsx watch src/server.ts",
     "generate": "npm run generate --prefix rtk-codegen",

@@ -1,7 +1,8 @@
 # ResearchPulse Implementation Progress Tracker
 
-## Current Iteration: Iteration 2 (Full-Fledged)
-- [ ] Active Task: Implement two-stage AI processing: Ollama cheap filtering -> Gemini deep scoring.
+## Current Iteration: Iteration 3 (Refinement & Backend Integration)
+- [x] Active Task: Redesign UI to match Popsters dashboard reference layout in Light Mode with high-performance 3-column architecture.
+- [ ] Next Task: Wire Right Panel Watchlist and 6 Mini Analytics Charts to real backend analytics endpoints.
 
 ---
 
@@ -42,15 +43,26 @@
 
 ### Module 6: Trend Detection & Secondary Strategic Stage
 - [x] Implement AI trend clustering logic (grouping related stories).
-- [ ] Build secondary content strategy prompts (generating LinkedIn posts, short video ideas, hooks, contrarian perspectives).
+- [x] Build secondary content strategy prompts (generating LinkedIn posts, short video ideas, hooks, contrarian perspectives).
 
-### Module 7: UI Dashboard & Dashboard Experience
-- [x] Build glassmorphic dashboard interface based on branding guidelines.
-- [x] Implement research feed viewer with interactive sorting, search, filtering by scores, and tag views.
-- [x] Build trend overview section with cluster visualizations.
-- [x] Implement source status overview page (interval tracker, manual trigger).
+### Module 7: UI Overhaul & Dashboard Experience
+- [x] Redesign UI to match Popsters dashboard reference layout (Light Mode default, dark gradient sidebar, 3-column architecture, high performance Recharts).
+- [x] Implement memoized `ArticleCard.tsx` with drag-and-drop cover image, metrics pills, score breakdown, and content strategy triggers.
+- [x] Build `RightPanel.tsx` with analyzed sources watchlist, statistics tabs, smooth monotone AreaChart, and 6 mini analytics charts.
+- [x] Upgrade `Sidebar.tsx` with sources counters, run history, and bottom AI provider toggle.
 
 ### Module 8: Multi-channel Integrations
 - [ ] Implement Telegram bot delivery service (submitting formatted digests).
 - [ ] Implement Notion workspace database integration sync.
 - [ ] Add saved search profile configuration.
+
+---
+
+## ⚡ Iteration 3: Component Refinement & Architecture Integration
+
+### Module 9: Right Panel & Analytics API Integration
+- [ ] Connect Right Panel Analyzed Sources Watchlist to live backend API (saving watchlists, fetching real source item counts & top scores).
+- [ ] Connect Right Panel 6 mini analytics charts to real aggregated backend analytics endpoints (hits by source, publish hour distribution, cluster momentum, dev impact by source, India impact by day).
+- [ ] Implement backend image storage endpoint for persisting custom uploaded cover images.
+- [ ] Refine Date Range Picker filter (`24/07/2026 - 29/07/2026`) in backend SQL/Mongo queries to filter research feed by custom date windows.
+- [ ] Implement export/download functionality for generated Reports (`Reports` button in Right Panel header).

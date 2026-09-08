@@ -51,7 +51,7 @@ Always align with the specifications configured in the workspace:
 * **Backend**: Node.js, Express, TypeScript.
 * **Database**: Dynamic database selection (PostgreSQL via Prisma or MongoDB via Mongoose) configured via `system_configs`. Use the Repository Pattern to decouple modules from database drivers.
 * **Scheduling**: Internal `node-cron` scheduler (no heavy BullMQ or Redis requirements).
-* **AI Providers**: Gemini API (for deep analysis) and Ollama (local cheap filter) behind the unified `AIProvider` factory.
+* **AI Providers**: Gemini API (for deep analysis), Ollama (local cheap filter), and SiliconFlow (Qwen2.5-7B-Instruct) behind the unified `AIProvider` factory.
 
 ---
 
