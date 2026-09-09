@@ -16,8 +16,8 @@ export const Footer: React.FC = () => {
           {/* Brand & Mission Statement */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
-                <Icon icon="solar:pulse-2-bold" className="text-base text-cyan-300" />
+              <div className="w-8 h-8 rounded-xl bg-slate-900 overflow-hidden shadow-xs border border-slate-800 flex items-center justify-center">
+                <img src="/logo.png" alt="ResearchPulse Logo" className="w-full h-full object-cover" />
               </div>
               <span className="text-xl font-bold tracking-tight text-slate-900 font-['Outfit']">
                 Research<span className="text-blue-600">Pulse</span>

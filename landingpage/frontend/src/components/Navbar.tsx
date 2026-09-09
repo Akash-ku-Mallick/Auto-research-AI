@@ -30,8 +30,8 @@ export const Navbar: React.FC = () => {
         
         {/* Brand Logo (Superhuman Inspired) */}
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-            <Icon icon="solar:pulse-2-bold" className="text-lg text-cyan-300" />
+          <div className="w-9 h-9 rounded-xl bg-slate-900 overflow-hidden shadow-sm group-hover:scale-105 transition-transform flex items-center justify-center border border-slate-800">
+            <img src="/logo.png" alt="ResearchPulse Logo" className="w-full h-full object-cover" />
           </div>
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold tracking-tight text-slate-900 font-['Outfit']">

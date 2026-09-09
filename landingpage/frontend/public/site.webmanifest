@@ -1,0 +1,21 @@
+{
+  "name": "ResearchPulse | AI Content Intelligence",
+  "short_name": "ResearchPulse",
+  "description": "Superhuman-grade content research and trend intelligence powered by Ollama and Gemini Pro.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f8fd",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
